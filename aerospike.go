@@ -13,6 +13,9 @@ import (
 type (
 	// Bundle implements the glue.Bundle interface.
 	Bundle struct{}
+
+	// Client is type alias of aerospike_client_go.Client
+	Client as.Client
 )
 
 // BundleName is default definition name.
@@ -60,6 +63,12 @@ func (b *Bundle) Build(builder *di.Builder) error {
 				var policy = as.NewClientPolicy()
 				if config.IsSet("idle_timeout") {
 					policy.IdleTimeout = config.GetDuration("idle_timeout")
+				}
+				if config.IsSet("timeout") {
+					policy.Timeout = config.GetDuration("timeout")
+				}
+				if config.IsSet("login_timeout") {
+					policy.LoginTimeout = config.GetDuration("login_timeout")
 				}
 
 				var client *as.Client
