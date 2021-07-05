@@ -1,4 +1,4 @@
-# GoZix Redigo
+# GoZix Aerospike client
 
 ## Dependencies
 
