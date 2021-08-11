@@ -1,6 +1,7 @@
 package aerospike
 
 import (
+	"fmt"
 	"net"
 	"strconv"
 
@@ -42,10 +43,10 @@ func (b *Bundle) Build(builder *di.Builder) error {
 					return nil, err
 				}
 
-				config = config.Sub("aerospike_cluster")
+				var suffix = fmt.Sprintf("%s.", "aerospike_cluster")
 
 				var (
-					nodes = config.GetStringSlice("nodes")
+					nodes = config.GetStringSlice(suffix + "nodes")
 					hosts = make([]*as.Host, 0, len(nodes))
 				)
 				for _, node := range nodes {
@@ -61,14 +62,14 @@ func (b *Bundle) Build(builder *di.Builder) error {
 				}
 
 				var policy = as.NewClientPolicy()
-				if config.IsSet("idle_timeout") {
-					policy.IdleTimeout = config.GetDuration("idle_timeout")
+				if config.IsSet(suffix + "idle_timeout") {
+					policy.IdleTimeout = config.GetDuration(suffix + "idle_timeout")
 				}
-				if config.IsSet("timeout") {
-					policy.Timeout = config.GetDuration("timeout")
+				if config.IsSet(suffix + "timeout") {
+					policy.Timeout = config.GetDuration(suffix + "timeout")
 				}
-				if config.IsSet("login_timeout") {
-					policy.LoginTimeout = config.GetDuration("login_timeout")
+				if config.IsSet(suffix + "login_timeout") {
+					policy.LoginTimeout = config.GetDuration(suffix + "login_timeout")
 				}
 
 				var client *as.Client
