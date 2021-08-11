@@ -42,7 +42,7 @@ func (b *Bundle) Build(builder *di.Builder) error {
 					return nil, err
 				}
 
-				config = config.Get("aerospike_cluster").(*viper.Viper)
+				config = config.Sub("aerospike_cluster")
 
 				var (
 					nodes = config.GetStringSlice("nodes")
