@@ -1,4 +1,4 @@
-module gitlab.mobbtech.com/gozix/aerospike
+module github.com/gozix/aerospike
 
 go 1.15
 
